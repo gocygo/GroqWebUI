@@ -2,6 +2,7 @@
 ## Table of Contents
 
 - [Overview](#overview)
+- [Privacy Policies](#Privacy-Policies)
 - [Features](#features)
 - [How it Works](#how-it-works)
 - [Road Map](#Road-Map)
@@ -10,7 +11,12 @@
 ---
 
 ## Overview
+Groq WebUI Groq WebUI is a user-friendly interface that allows interaction with Groq's AI models through text, voice, and file inputs. It provides a "secure" and private way to access GroqCloud's models, storing all data and settings locally within the browser. The application aims to provide an intuitive and seamless experience for users to engage with AI models. Always remember the privacy of an application is always dependant on the privacy policy of the APIs it uses. 
 
+## Privacy Policies
+- [Groq API](https://groq.com/privacy-policy/)
+- [Jina API](https://jina.ai/legal#privacy-policy)
+- 
 **Groq WebUI** 
 
 ---
@@ -39,7 +45,7 @@
 1. **User Interaction**: Input text, voice, or files. - Limited by each model's capabilities.
 2. **Processing**: Data is sent to GroqCloud’s API using your stored API key.
 3. **Response**: AI generates a context-aware reply based on your input.
-4. **Local Storage**: All conversation data is stored locally within your browser for privacy and security.
+4. **Local Storage**: Your api key is stored locally within your browser for privacy, security, and simplicity.
 
 ---
 
