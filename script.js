@@ -453,7 +453,7 @@ async function sendMessage() {
             });
             if (!response.ok) { // Changed from response.status !== 200 for broader success range
                 console.error('API request failed with status:', response.status);
-                appendMessage('System', 'API request failed.');
+                appendMessage('System', 'API request failed. Please check your api key.');
                 return;
             }
             const result = await response.json();
@@ -467,7 +467,7 @@ async function sendMessage() {
             conversationHistory.push({ role: 'assistant', content: aiMessage });
         } catch (error) {
             console.error('Error during API request:', error);
-            appendMessage('System', 'An error occurred while communicating with the AI.');
+            appendMessage('System', 'An error occurred while communicating with the model.');
         }
     }
 }
