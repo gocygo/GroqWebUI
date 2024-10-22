@@ -16,7 +16,7 @@ Groq WebUI Groq WebUI is a user-friendly interface that allows interaction with 
 ## Privacy Policies
 **Sources:** 
 - [Groq API](https://groq.com/privacy-policy/)
-- [Jina API](https://jina.ai/legal#privacy-policy)
+- [Jina API](https://jina.ai/legal#privacy-policy) - not implimented yet
 
 ---
 
