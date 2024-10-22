@@ -28,7 +28,7 @@ Groq WebUI Groq WebUI is a user-friendly interface that allows interaction with 
 - **Single API Key**: Currently supports only one API key for interaction with GroqCloud.
 - **Local Data Storage**: All data and settings are saved locally in your browser, ensuring privacy.
 
-- ## Road Map
+## Road Map
 - **Feedback Section**: Provide feedback directly within the application to help improve future updates.
 - **Enhanced API Key Security**: API keys are stored securely in the browser, with improved protection measures.
 - **Improved Interface**: A more intuitive, user-friendly design for seamless navigation. This Includes Chat History!
