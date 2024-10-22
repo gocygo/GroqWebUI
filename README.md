@@ -14,9 +14,9 @@
 Groq WebUI Groq WebUI is a user-friendly interface that allows interaction with Groq's AI models through text, voice, and file inputs. It provides a "secure" and private way to access GroqCloud's models, storing all data and settings locally within the browser. The application aims to provide an intuitive and seamless experience for users to engage with AI models. Always remember the privacy of an application is always dependant on the privacy policy of the APIs it uses. 
 
 ## Privacy Policies
+**Sources:** 
 - [Groq API](https://groq.com/privacy-policy/)
 - [Jina API](https://jina.ai/legal#privacy-policy)
-**Groq WebUI** 
 
 ---
 
