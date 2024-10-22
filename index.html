@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags for responsiveness and character encoding -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat Application with GroqCloud API</title>
+
+    <!-- Include Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind CSS Customization -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              roboto: ['Roboto', 'sans-serif'],
+            },
+          },
+        },
+      }
+    </script>
+
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100 font-roboto">
+
+    <!-- Application Container -->
+    <div class="max-w-3xl mx-auto p-6">
+        <!-- Heading -->
+        <h1 class="text-3xl font-bold mb-6">AI Chat Application with GroqCloud API</h1>
+
+        <!-- Settings Button -->
+        <div class="flex justify-end mb-6">
+            <button id="settings-button" class="p-2 text-gray-500 hover:text-gray-700 focus:outline-none" aria-label="Settings">
+                <!-- Updated Settings Icon -->
+                <img src="/assets/settings.svg" alt="Settings Icon" class="h-6 w-6 object-contain"/>
+            </button>
+        </div>
+
+        <!-- Chat Box -->
+        <div id="chat-box" class="mb-6 h-96 overflow-y-scroll bg-white p-6 border border-gray-300 rounded-md"
+             aria-label="Chat Messages">
+            <!-- Chat messages will appear here -->
+        </div>
+
+        <!-- Message Input -->
+        <div class="flex items-center mb-6">
+            <!-- Upload Icon for File Input -->
+            <button id="file-upload-button" class="mr-2 p-2 text-gray-500 hover:text-gray-700 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+                    aria-label="File Upload">
+                <!-- Upload Icon -->
+                <img src="/assets/upload.svg" alt="Upload Icon" class="h-6 w-6 object-contain"/>
+            </button>
+            <!-- Hidden File Input -->
+            <input type="file" id="file-input" class="hidden" multiple accept=".txt,.py,.js,.java,.c,.cpp,.jpg,.jpeg,.png,.gif,.bmp">
+
+            <input type="text" id="user-input" class="flex-grow px-4 py-2 border border-gray-300 rounded-md"
+                   placeholder="Type your message..." aria-label="User Message Input">
+            <!-- Voice Input Button with Both Icons -->
+            <button id="voice-input-button" class="ml-2 p-2 text-gray-500 hover:text-gray-700 focus:outline-none relative" aria-label="Voice Input">
+                <!-- Microphone Icon -->
+                <span id="microphone-icon" class="block">
+                    <img src="/assets/microphone.svg" alt="Microphone Icon" class="h-6 w-6 object-contain"/>
+                </span>
+                <!-- Recording Icon (Animated) -->
+                <span id="recording-icon" class="hidden absolute inset-0 flex items-center justify-center">
+                    <img src="/assets/recording.svg" alt="Recording Icon" class="h-6 w-6 object-contain animate-pulse"/>
+                </span>
+            </button>
+            <button id="send-button" class="ml-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700
+            focus:outline-none focus:ring-2 focus:ring-blue-500">Send</button>
+        </div>
+
+        <!-- Image Upload Area -->
+        <div id="image-upload-area" class="mb-6 hidden">
+            <label for="image-input" class="block text-sm font-medium text-gray-700">Upload Image</label>
+            <input type="file" id="image-input" accept="image/*" class="mt-1 block w-full text-gray-700">
+        </div>
+    </div>
+
+    <!-- Settings Menu Modal -->
+    <div id="settings-menu" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white w-full max-w-md p-6 rounded-md shadow-md">
+            <!-- Settings Content -->
+            <h2 class="text-xl font-semibold mb-4">Settings</h2>
+
+            <!-- API Key Input -->
+            <div class="mb-4">
+                <label for="api-key" class="block text-sm font-medium text-gray-700">GroqCloud API Key</label>
+                <input type="password" id="api-key" class="mt-1 block w-full px-3 py-2 border border-gray-300
+                rounded-md" placeholder="Your GroqCloud API Key" aria-label="API Key">
+                <p class="mt-2 text-sm text-gray-600">
+                    Get your API key from <a href="https://console.groq.com/keys" target="_blank"
+                                             class="text-blue-600 underline">console.groq.com/keys</a>.
+                </p>
+            </div>
+
+            <!-- Model Selection -->
+            <div class="mb-4">
+                <label for="model-selection" class="block text-sm font-medium text-gray-700">Select Model</label>
+                <select id="model-selection" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                        aria-label="Model Selection">
+                    <!-- Models will be dynamically populated -->
+                </select>
+            </div>
+
+            <!-- Transcription Model Selection -->
+            <div class="mb-4">
+                <label for="transcription-model-selection" class="block text-sm font-medium text-gray-700">Select Transcription Model</label>
+                <select id="transcription-model-selection" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                        aria-label="Transcription Model Selection">
+                    <!-- Transcription models will be dynamically populated -->
+                </select>
+            </div>
+
+            <!-- Advanced Settings -->
+            <h3 class="text-lg font-semibold mb-2">Advanced Settings</h3>
+            <div class="mb-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label for="max-tokens" class="block text-sm font-medium text-gray-700">Max Tokens</label>
+                    <input type="number" id="max-tokens" class="mt-1 block w-full px-3 py-2 border border-gray-300
+                    rounded-md" placeholder="e.g., 100" aria-label="Max Tokens">
+                </div>
+                <div>
+                    <label for="temperature" class="block text-sm font-medium text-gray-700">Temperature</label>
+                    <input type="number" step="0.1" min="0" max="2" id="temperature"
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                           placeholder="e.g., 1.0" aria-label="Temperature">
+                </div>
+                <div>
+                    <label for="top-p" class="block text-sm font-medium text-gray-700">Top P</label>
+                    <input type="number" step="0.1" min="0" max="1" id="top-p"
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                           placeholder="e.g., 1.0" aria-label="Top P">
+                </div>
+            </div>
+
+            <!-- Content Moderation Toggle -->
+            <div class="mb-4 flex items-center">
+                <input type="checkbox" id="content-moderation" class="h-4 w-4 text-blue-600"
+                       aria-label="Content Moderation Toggle" disabled>
+                <label for="content-moderation" class="ml-2 block text-sm text-gray-700">Enable Content Moderation</label>
+            </div>
+
+            <!-- Close Settings Button -->
+            <div class="flex justify-end">
+                <button id="close-settings-button" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700
+                focus:outline-none focus:ring-2 focus:ring-blue-500">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Key Modal -->
+    <div id="api-key-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white w-full max-w-md p-6 rounded-md shadow-md">
+            <h2 class="text-xl font-semibold mb-4">Enter Your API Key</h2>
+            <p class="mb-4">Get your API key from <a href="https://console.groq.com/keys" target="_blank"
+                                                     class="text-blue-600 underline">console.groq.com/keys</a>.</p>
+            <input type="password" id="modal-api-key" class="w-full border border-gray-300 p-2 rounded-md mb-4"
+                   placeholder="API Key" aria-label="API Key">
+            <button id="modal-save-api-key" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700
+            focus:outline-none focus:ring-2 focus:ring-blue-500">Save API Key</button>
+        </div>
+    </div>
+
+    <!-- Include the JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>

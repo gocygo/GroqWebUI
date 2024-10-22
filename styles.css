@@ -1,0 +1,181 @@
+/* styles.css */
+
+/* Root Variables for Consistent Color Scheme */
+:root {
+    --primary-bg-color: #f3f4f6; /* Light background color for a clean, minimal look */
+    --modal-bg-color: #ffffff; /* Modal background - pure white for contrast */
+    --text-color: #333333; /* Dark gray for text */
+    --highlight-color: #007aff; /* Bright blue for primary buttons and highlights */
+    --shadow-color: rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    --border-radius: 12px; /* Consistent border radius for rounded elements */
+    --input-border-color: #e0e0e0; /* Light border for input fields */
+    --input-focus-color: #007aff; /* Focus color for inputs */
+    --button-hover-color: #005bb5; /* Darker blue for hover state */
+    --modal-overlay-color: rgba(0, 0, 0, 0.4); /* Overlay color for modals */
+}
+
+/* General Body Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--primary-bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* Heading */
+h1 {
+    color: var(--text-color);
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+/* Chat Box Styling */
+#chat-box {
+    background-color: #fff;
+    border: 1px solid var(--input-border-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px var(--shadow-color);
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* Input Box Styles */
+.input-container {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    padding: 10px;
+    border-radius: var(--border-radius);
+    background-color: #fff;
+    box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+input[type="text"] {
+    flex-grow: 1;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 10px;
+    font-size: 1rem;
+    background-color: var(--primary-bg-color);
+    outline: none;
+    transition: all 0.3s;
+    border: 1px solid transparent;
+}
+
+input[type="text"]:focus {
+    border-color: var(--input-focus-color);
+    background-color: #f9f9f9;
+}
+
+input::placeholder {
+    color: #888888;
+}
+
+/* Send Button */
+.send-button {
+    background-color: var(--highlight-color);
+    border: none;
+    color: #ffffff;
+    border-radius: var(--border-radius);
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-left: 10px;
+}
+
+.send-button:hover {
+    background-color: var(--button-hover-color);
+    transform: scale(1.05);
+}
+
+.send-button:active {
+    transform: scale(0.95);
+}
+
+/* Settings Icon Styling */
+#settings-button {
+    /* Removed absolute positioning to prevent overlay issues */
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+#settings-button img {
+    width: 24px;
+    height: 24px;
+}
+
+#settings-button:hover {
+    transform: rotate(20deg);
+}
+
+/* Recording Animation */
+.recording-animation {
+    /* Apply pulse animation to the recording icon */
+    animation: pulseAnimation 1s infinite;
+}
+
+/* Define keyframes for the pulse animation */
+@keyframes pulseAnimation {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Modal for Settings */
+/* Removed custom #settings-menu styles to avoid conflict with Tailwind */
+
+/* Close Settings Button */
+#close-settings-button {
+    background-color: var(--highlight-color);
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+#close-settings-button:hover {
+    background-color: var(--button-hover-color);
+}
+
+/* Accessibility and Responsiveness */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    #chat-box {
+        max-height: 300px;
+    }
+
+    .send-button {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+}
+
+:focus-visible {
+    outline: 3px solid var(--highlight-color);
+    outline-offset: 4px;
+}
